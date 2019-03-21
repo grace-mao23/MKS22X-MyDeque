@@ -36,6 +36,14 @@ public class MyDeque<E>{
     return result +"}";
   }
 
+  public String toDebug(){
+    String result = "{";
+    for (int i = 0; i < data.length; i++) {
+      result += data[i] + " ";
+    }
+    return result+"}";
+  }
+
   @SuppressWarnings("unchecked")
   private void resize() {
     E[] newData = (E[])new Object[data.length * 2 + 1];
@@ -56,6 +64,8 @@ public class MyDeque<E>{
       }
     }
     data = newData;
+    start = 0;
+    end = size - 1;
   }
 
   public void addFirst(E element){
@@ -119,22 +129,34 @@ public class MyDeque<E>{
     return null;
   }
 
-  public E getFirst(E element){
+  public E getFirst(){
     return data[start];
   }
 
-  public E getLast(E element){
+  public E getLast(){
     return data[end];
   }
 
+  public int getStart(){
+    return start;
+  }
+
+  public int getEnd() {
+    return end;
+  }
+
   public static void main(String[] args) {
-    MyDeque<String> m = new MyDeque<String>();
+    MyDeque<String> m = new MyDeque<String>(2);
     System.out.println(m.toString());
+  //  System.out.println(m.toDebug() + m.getEnd());
     m.addFirst("My");
     System.out.println(m.toString());
+  //  System.out.println(m.toDebug() + m.getEnd());
     m.addFirst("Hi");
     System.out.println(m.toString());
+  //  System.out.println(m.toDebug() + m.getEnd());
     m.addLast("Name");
     System.out.println(m.toString());
+  //  System.out.println(m.toDebug() + m.getEnd());
   }
 }
