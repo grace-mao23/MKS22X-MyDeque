@@ -84,8 +84,29 @@ public class MyDeque<E>{
   }
 
   public void addLast(E element){
+    if (element == null) {
+      throw new NullPointerException("Cannot add null");
+    }
     // special cases:
-    // no more room
+    // no more room at end, but still room before start
+    // no more room in general (resize)
+    if (end == data.length - 1 && start != 0) {
+      end = 0;
+      data[end] = element;
+    } else if (data.length - 1 == size()) {
+      int prevSize = size();
+      resize();
+      end = prevSize+1;
+      data[end] = element;
+    } else {
+      // NO SPECIAL CASES
+      end += 1;
+      data[end] = element;
+    }
+    size++;
+    if (size() == 1) {
+      start = end;
+    }
   }
 
   // set to null
@@ -112,6 +133,8 @@ public class MyDeque<E>{
     m.addFirst("My");
     System.out.println(m.toString());
     m.addFirst("Hi");
+    System.out.println(m.toString());
+    m.addLast("Name");
     System.out.println(m.toString());
   }
 }
