@@ -25,19 +25,33 @@ public class MyDeque<E>{
   }
 
   public void addFirst(E element){
+    // special cases:
+    // no more room at start, but still room after end
+    // no more room in general (resize)
+    if (start == 0 && end != data.length - 1) {
+      start = data.length - 1;
+      data[start] = element;
+    } else if (start == 0 && end == data.length - 1) {
 
+    } else {
+      // NO SPECIAL CASES
+      start -= 1;
+      data[start] = element;
+    }
   }
 
   public void addLast(E element){
 
   }
 
-  public E removeFirst(E element){
-    return element;
+  // set to null
+  public E removeFirst(){
+    return null;
   }
 
-  public E removeLast(E element){
-    return element;
+  // set to null
+  public E removeLast(){
+    return null;
   }
 
   public E getFirst(E element){
