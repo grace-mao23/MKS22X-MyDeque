@@ -27,8 +27,21 @@ public class MyDeque<E>{
   @SuppressWarnings("unchecked")
   private void resize() {
     E[] newData = (E[])new Object[data.length * 2 + 1];
-    for (int i = 0; i < size(); i++) {
-      newData[i] = data[i];
+    int index = 0;
+    if (start <= end) {
+      for (int i = start; i <= end; i++) {
+        newData[index] = data[i];
+        index++;
+      }
+    } else { // start is larger than end
+      for (int i = start; i < data.length; i++) {
+        newData[index] = data[i];
+        index++;
+      }
+      for (int i = 0; i <= end; i++) {
+        newData[index] = data[i];
+        index++;
+      }
     }
     data = newData;
   }
@@ -40,8 +53,10 @@ public class MyDeque<E>{
     if (start == 0 && end != data.length - 1) {
       start = data.length - 1;
       data[start] = element;
-    } else if (start == 0 && end == data.length - 1) {
-
+    } else if (data.length - 1 == size()) {
+      resize();
+      start = data.length - 1;
+      data[start] = element;
     } else {
       // NO SPECIAL CASES
       start -= 1;
@@ -70,5 +85,13 @@ public class MyDeque<E>{
 
   public E getLast(E element){
     return data[end];
+  }
+
+  public static void main(String[] args) {
+    MyDeque<String> m = new MyDeque<String>();
+    System.out.println(m.toString());
+    m.addFirst("My");
+    System.out.println(m.toString());
+    m.addFirst("Hi");
   }
 }
