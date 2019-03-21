@@ -18,10 +18,22 @@ public class MyDeque<E>{
 
   public String toString(){
     String result = "{";
-    for (int i = start; i <= end; i++) {
-      result += data[start] + " ";
+    if (size() == 0) {
+      return "{}";
     }
-    return result + "}";
+    if (start <= end) {
+      for (int i = start; i <= end; i++) {
+        result += data[i]+" ";
+      }
+    } else { // start is larger than end
+      for (int i = start; i < data.length; i++) {
+        result += data[i] + " ";
+      }
+      for (int i = 0; i <= end; i++) {
+        result += data[i] + " ";
+      }
+    }
+    return result +"}";
   }
 
   @SuppressWarnings("unchecked")
@@ -63,6 +75,9 @@ public class MyDeque<E>{
       data[start] = element;
     }
     size++;
+    if (size() == 1) {
+      end = start;
+    }
   }
 
   public void addLast(E element){
@@ -93,5 +108,6 @@ public class MyDeque<E>{
     m.addFirst("My");
     System.out.println(m.toString());
     m.addFirst("Hi");
+    System.out.println(m.toString());
   }
 }
