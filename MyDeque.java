@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class MyDeque<E>{
   private E[] data;
   private int size, start, end;
@@ -121,19 +123,41 @@ public class MyDeque<E>{
 
   // set to null
   public E removeFirst(){
-    return null;
+    if (size() == 0) {
+      throw new NoSuchElementException("This Deque is empty");
+    }
+    // special case:
+    // start is the last element in data
+    E result = data[start];
+    data[start] = null;
+    if (start == data.length - 1) {
+      start = 0;
+    } else {
+      // NO SPECIAL CASE
+      start += 1;
+    }
+    return result;
   }
 
   // set to null
   public E removeLast(){
+    if (size() == 0) {
+      throw new NoSuchElementException("This Deque is empty");
+    }
     return null;
   }
 
   public E getFirst(){
+    if (size() == 0) {
+      throw new NoSuchElementException("This Deque is empty");
+    }
     return data[start];
   }
 
   public E getLast(){
+    if (size() == 0) {
+      throw new NoSuchElementException("This Deque is empty");
+    }
     return data[end];
   }
 
@@ -158,5 +182,9 @@ public class MyDeque<E>{
     m.addLast("Name");
     System.out.println(m.toString());
   //  System.out.println(m.toDebug() + m.getEnd());
+    m.removeFirst();
+    System.out.println(m.toString());
+    m.addFirst("Hello");
+    System.out.println(m.toString());
   }
 }
