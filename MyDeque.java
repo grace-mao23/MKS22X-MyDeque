@@ -17,7 +17,11 @@ public class MyDeque<E>{
   }
 
   public String toString(){
-    return "";
+    String result = "{";
+    for (int i = start; i <= end; i++) {
+      result += data[start] + " ";
+    }
+    return result + "}";
   }
 
   public void addFirst(E element){
@@ -39,7 +43,7 @@ public class MyDeque<E>{
   public E getFirst(E element){
     return element;
   }
-  
+
   public E getLast(E element){
     return element;
   }
