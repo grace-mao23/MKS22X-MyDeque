@@ -24,6 +24,15 @@ public class MyDeque<E>{
     return result + "}";
   }
 
+  @SuppressWarnings("unchecked")
+  private void resize() {
+    E[] newData = (E[])new Object[data.length * 2 + 1];
+    for (int i = 0; i < size(); i++) {
+      newData[i] = data[i];
+    }
+    data = newData;
+  }
+
   public void addFirst(E element){
     // special cases:
     // no more room at start, but still room after end
@@ -38,6 +47,7 @@ public class MyDeque<E>{
       start -= 1;
       data[start] = element;
     }
+    size++;
   }
 
   public void addLast(E element){
