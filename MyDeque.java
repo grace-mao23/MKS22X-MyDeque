@@ -106,7 +106,7 @@ public class MyDeque<E>{
       end = 0;
       data[end] = element;
     } else if (data.length - 1 == size()) {
-      int prevSize = size();
+      int prevSize = data.length-1;
       resize();
       end = prevSize+1;
       data[end] = element;
@@ -136,6 +136,7 @@ public class MyDeque<E>{
       // NO SPECIAL CASE
       start += 1;
     }
+    size--;
     return result;
   }
 
@@ -144,7 +145,18 @@ public class MyDeque<E>{
     if (size() == 0) {
       throw new NoSuchElementException("This Deque is empty");
     }
-    return null;
+    // special case:
+    // end is the first element
+    E result = data[end];
+    data[end] = null;
+    if (end == 0) {
+      end = data.length - 1;
+    } else {
+      // NO SPECIAL CASE
+      end -= 1;
+    }
+    size--;
+    return result;
   }
 
   public E getFirst(){
@@ -171,20 +183,31 @@ public class MyDeque<E>{
 
   public static void main(String[] args) {
     MyDeque<String> m = new MyDeque<String>(2);
-    System.out.println(m.toString());
+  //  System.out.println(m.toString() + m.getStart());
   //  System.out.println(m.toDebug() + m.getEnd());
     m.addFirst("My");
-    System.out.println(m.toString());
+  //  System.out.println(m.toString() + m.getStart());
   //  System.out.println(m.toDebug() + m.getEnd());
     m.addFirst("Hi");
-    System.out.println(m.toString());
+  //  System.out.println(m.toString() + m.getStart());
   //  System.out.println(m.toDebug() + m.getEnd());
     m.addLast("Name");
-    System.out.println(m.toString());
+  //  System.out.println(m.toString() + m.getStart());
   //  System.out.println(m.toDebug() + m.getEnd());
-    m.removeFirst();
-    System.out.println(m.toString());
+    System.out.println(m.removeFirst());
+  //  System.out.println(m.toString() + m.getStart());
+  //  System.out.println(m.toDebug() + m.getEnd());
     m.addFirst("Hello");
+  //  System.out.println(m.toString() + m.getStart());
+  //  System.out.println(m.toDebug() + m.getEnd());
+    System.out.println(m.removeLast());
+//    System.out.println(m.toString() + m.getStart());
+//    System.out.println(m.toDebug() + m.getEnd());
+    m.addLast("Birthday");
+//    System.out.println(m.toString() + m.getStart());
+//    System.out.println(m.toDebug() + m.getEnd());
     System.out.println(m.toString());
+    System.out.println(m.getFirst());
+    System.out.println(m.getLast());
   }
 }
