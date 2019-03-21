@@ -41,10 +41,10 @@ public class MyDeque<E>{
   }
 
   public E getFirst(E element){
-    return element;
+    return data[start];
   }
 
   public E getLast(E element){
-    return element;
+    return data[end];
   }
 }
