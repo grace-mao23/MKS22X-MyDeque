@@ -81,7 +81,8 @@ public class MyDeque<E>{
   }
 
   public void addLast(E element){
-
+    // special cases:
+    // no more room
   }
 
   // set to null
