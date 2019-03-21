@@ -59,6 +59,9 @@ public class MyDeque<E>{
   }
 
   public void addFirst(E element){
+    if (element == null) {
+      throw new NullPointerException("Cannot add null");
+    }
     // special cases:
     // no more room at start, but still room after end
     // no more room in general (resize)
