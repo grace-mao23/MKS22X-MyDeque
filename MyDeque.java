@@ -11,6 +11,9 @@ public class MyDeque<E>{
 
   @SuppressWarnings("unchecked")
   public MyDeque(int initialCapacity){
+    size = 0;
+    start = 0;
+    end = 0;
     data = (E[])new Object[initialCapacity];
   }
 
@@ -20,9 +23,22 @@ public class MyDeque<E>{
 
   public String toString(){
     String result = "{";
-    if (size() == 0) {
+    if (size == 0) {
       return "{}";
     }
+  /*  } else if (start <= end) {
+      for (int i = start; i <= end; i++) {
+        result += data[i] + " ";
+      }
+    } else {
+      for (int i = start; i < data.length; i++) {
+        result += data[i] + " ";
+      }
+      for (int i = 0; i <= end; i++) {
+        result += data[i] + " ";
+      }
+    }
+    return result + "}"; */
     int index = start;
     for (int i = 0; i < size; i++) {
       result += data[index % data.length] + " ";
@@ -42,14 +58,29 @@ public class MyDeque<E>{
   @SuppressWarnings("unchecked")
   private void resize() {
     E[] newData = (E[])new Object[data.length * 2 + 1];
-    int index = start;
-    for (int i = 0; i < size; i++) {
+    int index = 0;
+    if (start < end) {
+      for (int i = start; i <= end; i++) {
+        newData[index] = data[i];
+        index++;
+      }
+    } else {
+      for (int i = start; i < data.length; i++) {
+        newData[index] = data[i];
+        index++;
+      }
+      for (int i = 0; i <= end; i++) {
+        newData[index] = data[i];
+        index++;
+      }
+    }
+  /*  for (int i = 0; i < size; i++) {
       newData[i] = data[index % data.length];
       index++;
-    }
+    } */
     data = newData;
     start = 0;
-    end = size - 1;
+    end = size-1;
   }
 
   public void addFirst(E element){
@@ -59,22 +90,21 @@ public class MyDeque<E>{
     // special cases:
     // no more room at start, but still room after end
     // no more room in general (resize)
-    if (start == 0 && end != data.length - 1) {
-      start = data.length - 1;
-      data[start] = element;
-    } else if (data.length - 1 == size()) {
+    if (size == data.length) {
       resize();
+    }
+    if (size == 0) {
+      start = 0;
+      end = 0;
+    }
+    if (start == 0) {
       start = data.length - 1;
-      data[start] = element;
     } else {
       // NO SPECIAL CASES
       start -= 1;
-      data[start] = element;
     }
+    data[start] = element;
     size++;
-    if (size() == 1) {
-      end = start;
-    }
   }
 
   public void addLast(E element){
@@ -87,7 +117,10 @@ public class MyDeque<E>{
     if (size == data.length) {
       resize();
     }
-    if (start != 0) {
+    if (size == 0) {
+      start = 0;
+      end = start;
+    } else if (end == data.length - 1) {
       end = 0;
     } else {
       // NO SPECIAL CASES
@@ -95,9 +128,6 @@ public class MyDeque<E>{
     }
     data[end] = element;
     size++;
-    if (size() == 1) {
-      start = end;
-    }
   }
 
   // set to null
@@ -191,8 +221,9 @@ public class MyDeque<E>{
     MyDeque<Integer> m = new MyDeque<Integer>(2);
     for (int i = 0; i < 10; i++) {
       m.addLast(i);
-      //System.out.println(m.toString());
-      //System.out.println("Debug: " + m.toDebug());
+  //    System.out.println(m.toString());
+    //  System.out.println("Debug: " + m.toDebug());
+      //System.out.println("Start, End: " + m.getStart() + ","+m.getEnd());
     }
     System.out.println(m.toString());
     m.removeLast();
