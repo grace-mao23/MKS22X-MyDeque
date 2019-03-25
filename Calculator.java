@@ -5,8 +5,27 @@ public class Calculator{
      */
     public static double eval(String s){
       String[] tokens = s.split(" ");
-      for (String reg : tokens) {
+      /*for (String reg : tokens) {
         System.out.println(reg);
+      }*/
+      MyDeque<Double> stack = new MyDeque<Double>();
+      for (String t : tokens) {
+        // + - * / %
+        if (t.equals("+")) {
+
+        } else if (t.equals("-")) {
+
+        } else if (t.equals("*")) {
+
+        } else if (t.equals("/")) {
+
+        } else if (t.equals("%")) {
+
+        } else {
+          double d = Double.parseDouble(t);
+          stack.addLast(d);
+          System.out.println(stack.toString());
+        }
       }
       return -1.0;
     }
