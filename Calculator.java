@@ -12,7 +12,9 @@ public class Calculator{
       for (String t : tokens) {
         // + - * / %
         if (t.equals("+")) {
-
+          double second = stack.removeLast();
+          double first = stack.removeLast();
+          stack.addLast(first + second);
         } else if (t.equals("-")) {
 
         } else if (t.equals("*")) {
@@ -24,14 +26,13 @@ public class Calculator{
         } else {
           double d = Double.parseDouble(t);
           stack.addLast(d);
-          System.out.println(stack.toString());
         }
       }
-      return -1.0;
+      return stack.getFirst();
     }
 
     public static void main(String[] args) {
-      Calculator.eval("3 4 +");
+      System.out.println(Calculator.eval("3 4 +"));
     }
 
 }
