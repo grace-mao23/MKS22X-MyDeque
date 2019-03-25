@@ -93,15 +93,13 @@ public class MyDeque<E>{
     if (size == data.length) {
       resize();
     }
-    if (size == 0) {
-      start = 0;
-      end = 0;
-    }
-    if (start == 0) {
-      start = data.length - 1;
-    } else {
-      // NO SPECIAL CASES
-      start -= 1;
+    if (size != 0) {
+      if (start == 0) {
+        start = data.length - 1;
+      } else {
+        // NO SPECIAL CASES
+        start -= 1;
+      }
     }
     data[start] = element;
     size++;
@@ -117,14 +115,13 @@ public class MyDeque<E>{
     if (size == data.length) {
       resize();
     }
-    if (size == 0) {
-      start = 0;
-      end = start;
-    } else if (end == data.length - 1) {
+    if (size != 0) {
+      if (end == data.length - 1) {
       end = 0;
-    } else {
-      // NO SPECIAL CASES
-      end += 1;
+      } else {
+        // NO SPECIAL CASES
+        end += 1;
+      }
     }
     data[end] = element;
     size++;
@@ -139,11 +136,13 @@ public class MyDeque<E>{
     // start is the last element in data
     E result = data[start];
     data[start] = null;
-    if (start == data.length - 1) {
-      start = 0;
-    } else {
-      // NO SPECIAL CASE
-      start += 1;
+    if (size != 1) {
+      if (start == data.length - 1) {
+        start = 0;
+      } else {
+        // NO SPECIAL CASE
+        start += 1;
+      }
     }
     size--;
     return result;
@@ -158,11 +157,13 @@ public class MyDeque<E>{
     // end is the first element
     E result = data[end];
     data[end] = null;
-    if (end == 0) {
-      end = data.length - 1;
-    } else {
-      // NO SPECIAL CASE
-      end -= 1;
+    if (size != 1) {
+      if (end == 0) {
+        end = data.length - 1;
+      } else {
+        // NO SPECIAL CASE
+        end -= 1;
+      }
     }
     size--;
     return result;
